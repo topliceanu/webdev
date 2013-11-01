@@ -1,2 +1,27 @@
+<ul id="content"></ul>
 <script src="jquery.js"></script>
-<script src="index.js"></script>
+<script>
+
+    var id = '1234';
+    var $content = $('#content');
+    var onSuccess = function (data) {
+        console.log(data);
+        for (var i = 0, n = data.length; i < n; i ++) {
+            $content.append(
+                "<li>"+
+                    "<h3>"+data[i].title+"</h3>"+
+                    "<img src='"+data[i].image+"'/>"+
+                    "<a href='"+data[i].url+"'>go to article</a>"+
+                "</li>"
+            );
+        }
+    };
+
+    $.ajax({
+        method: 'get',
+        url: 'http://webdev-2013.heroku.com/bucket/'+id+'/get',
+        dataType: 'jsonp',
+        success: onSuccess
+    });
+
+</script>
