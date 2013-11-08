@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+    <head></head>
+    <body>
+        <li class="template"><a href=""></a></li>
+        <ul id="content"></ul>
+
+
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script>
+            var $content = $('#content');
+            var $template = $('.template');
+
+            var onData = function (data) {
+                for (var i = 0, n = data.length; i < n; i ++) {
+                    var url = data[i].url;
+                    $template.clone().find('a')
+                        .attr('href', url)
+                        .html(url)
+                        .end()
+                        .appendTo($content);
+                }
+            };
+
+            $.ajax({
+                method: 'get',
+                url: 'https://demo-project-c9-alexandrutopliceanu.c9.io/items',
+                success: onData
+            });
+        </script>
+    </body>
+</html>
