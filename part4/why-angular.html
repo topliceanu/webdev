@@ -1,0 +1,22 @@
+<!doctype html>
+<html ng-app="app">
+    <head>
+        <title>App</title>
+        <meta charset="utf-8">
+    </head>
+    <body ng-controller="Controller">
+        <div id="container">
+            <input type="text" ng-model="value"/>
+            <p>{{ value }}</p>
+        </div>
+
+        <script src="http://code.angularjs.org/1.2.1/angular.js"></script>
+        <script>
+            // Synchronize the contents of the input with the contents of the p tag.
+
+            // Solution 3. Using Angular.
+            var app = angular.module('app', []);
+            app.controller('Controller', function () {});
+        </script>
+    </body>
+</html>

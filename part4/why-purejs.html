@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <head>
+        <title>App</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div id="container">
+            <input type="text"/>
+            <p></p>
+        </div>
+
+        <script>
+            // Synchronize the contents of the input with the contents of the p tag.
+
+            // Solution 1. Pure Javascript.
+            var container = document.getElementById('container')
+            var input = container.getElementsByTagName('input')[0]
+            var p = container.getElementsByTagName('p')[0]
+
+            var onKeyup = function () {
+                p.innerHTML = input.value;
+            };
+
+            input.addEventListener('keyup', onKeyup, false);
+        </script>
+    </body>
+</html>

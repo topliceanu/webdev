@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+    <head>
+        <title>App</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div id="container">
+            <input type="text"/>
+            <p></p>
+        </div>
+
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script>
+            // Synchronize the contents of the input with the contents of the p tag.
+
+            // Solution 2. Using jQuery.
+            var $input = $('#container input');
+            var $p = $('#container p');
+            $input.on('keyup', function () {
+                $p.html($input.val());
+            });
+        </script>
+    </body>
+</html>
