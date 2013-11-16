@@ -32,21 +32,15 @@
                 };
             });
 
+            app.filter('reverse', function() {
+                return function(items) {
+                    return items.slice().reverse();
+                };
+            });
 
             app.controller('Controller', function ($scope, socket) {
                 $scope.newMessage = '';
-                $scope.messages = [
-                    {
-                        date: new Date(),
-                        user: 'me',
-                        message: 'hi!'
-                    },
-                    {
-                        date: new Date(),
-                        user: 'me',
-                        message: 'hi back!'
-                    }
-                ];
+                $scope.messages = [];
 
                 $scope.onSubmit = function () {
                     socket.emit('message', {
@@ -58,6 +52,10 @@
                 };
 
                 socket.on('message', function (data) {
+                    var imgs = data.message.match(/(https?:\/\/.*\.(?:png|jpg))/);
+                    if (imgs && imgs.length > 0) {
+                        data.img = imgs[0];
+                    }
                     $scope.messages.push(data);
                 });
             });
@@ -71,10 +69,11 @@
             <input type="submit" value="Send"/>
         </form>
         <ul>
-            <li ng-repeat="message in messages">
+            <li ng-repeat="message in messages | reverse">
                 <i>On</i> {{message.date}}
                 <i>user</i> {{message.user}}
                 <i>said:</i> {{message.message}}
+                <img src="{{message.img}}"/>
             </li>
         </ul>
     </body>
