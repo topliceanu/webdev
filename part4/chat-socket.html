@@ -1,17 +1,15 @@
 <!doctype html>
 <html ng-app="app">
     <head>
-        <title>App</title>
-        <meta charset="utf-8">
+        <title>Whatever</title>
 
-        <!-- APP LOGIC -->
+        <script src="angular.js"></script>
         <script src="https://demo-project-c9-alexandrutopliceanu.c9.io/socket.io/socket.io.js"></script>
-        <script src="http://code.angularjs.org/1.2.1/angular.js"></script>
         <script>
             var app = angular.module('app', []);
 
             app.factory('socket', function ($rootScope) {
-                var socket = io.connect("https://demo-project-c9-alexandrutopliceanu.c9.io");
+                var socket = io.connect('https://demo-project-c9-alexandrutopliceanu.c9.io')
                 return {
                     on: function (eventName, callback) {
                         socket.on(eventName, function () {
@@ -34,59 +32,50 @@
                 };
             });
 
+
             app.controller('Controller', function ($scope, socket) {
-                $scope.comments = [
+                $scope.newMessage = '';
+                $scope.messages = [
                     {
-                        date: new Date,
-                        user: 'Bot',
-                        message: 'Hi!'
+                        date: new Date(),
+                        user: 'me',
+                        message: 'hi!'
                     },
                     {
-                        date: new Date,
-                        user: 'Bot',
-                        message: 'Start typing!'
+                        date: new Date(),
+                        user: 'me',
+                        message: 'hi back!'
                     }
                 ];
 
-                $scope.username = ''
-                $scope.newComment = null
-                $scope.postComment = function () {
-                    username = this.username || 'Me'
+                $scope.onSubmit = function () {
                     socket.emit('message', {
-                        date: new Date,
-                        user: this.username,
-                        message: this.newComment
+                        date: new Date(),
+                        user: 'me',
+                        message: $scope.newMessage
                     });
+                    $scope.newMessage = '';
                 };
 
-                socket.on('message', function (message) {
-                    this.comments.push({
-                        date: new Date,
-                        user: this.username || 'Me',
-                        message: message
-                    });
+                socket.on('message', function (data) {
+                    $scope.messages.push(data);
                 });
             });
+
         </script>
     </head>
 
     <body ng-controller="Controller">
-
-        <div id="container">
-            <div>Comments count: {{comments.length}}</div>
-
-            <ul>
-                <li ng-repeat="comment in comments">
-                <i>On</i>({{comment.date}}) <b>{{comment.user}}</b> <i> said: </i> {{comment.message}}
-                </li>
-            </ul>
-
-            <form ng-submit="postComment()">
-                <input type="text" ng-model="username"/>
-                <input type="text" ng-model="newComment"/>
-                <input type="submit" value="Submit"/>
-            </form>
-        </div>
-
+        <form ng-submit="onSubmit()">
+            <input type="text" ng-model="newMessage"/>
+            <input type="submit" value="Send"/>
+        </form>
+        <ul>
+            <li ng-repeat="message in messages">
+                <i>On</i> {{message.date}}
+                <i>user</i> {{message.user}}
+                <i>said:</i> {{message.message}}
+            </li>
+        </ul>
     </body>
 </html>
