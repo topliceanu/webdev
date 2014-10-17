@@ -1,11 +1,12 @@
-http = require('http');
+var http = require('http');
 
-cors = require('cors');
-express = require('express');
-Datastore = require('nedb');
+var bodyParser = require('body-parser');
+var cors = require('cors');
+var express = require('express');
+var Datastore = require('nedb');
 
 
-db = {
+var db = {
     users: new Datastore({
         filename: '/tmp/users.db',
         autoload: true
@@ -18,25 +19,26 @@ db = {
         filename: '/tmp/rows.db',
         autoload: true
     })
-}
+};
 
 
-app = express()
-app.use express.query()
-app.use express.bodyParser()
-app.use cors()
+var app = express();
+app.use(express.query());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
 
 
-readAll = function (type) {
+var readAll = function (type) {
     return function (req, res) {
         db[type].find({}, function (err, docs) {
             if (err) return res.send(500, err.message);
             return res.send(200, docs);
         });
     };
-}
+};
 
-read = function(type) {
+var read = function(type) {
     return function(req, res) {
         db[type].findOne({
             _id: req.params.id
@@ -49,7 +51,7 @@ read = function(type) {
     };
 };
 
-create = function(type) {
+var create = function(type) {
     return function(req, res) {
         db[type].insert(req.body, function(err, newDoc) {
             if (err != null) {
@@ -60,7 +62,7 @@ create = function(type) {
     };
 };
 
-update = function(type) {
+var update = function(type) {
     return function(req, res) {
         var find, opts, updates;
         find = {
@@ -82,7 +84,7 @@ update = function(type) {
     };
 };
 
-remove = function(type) {
+var remove = function(type) {
     return function(req, res) {
         var find, opts;
         find = {
@@ -106,8 +108,8 @@ remove = function(type) {
     app.get("/"+type, readAll(type));
     app.get("/"+type+"/:id", read(type));
     app.put("/"+type+"/:id", update(type));
-    app.del("/"+type+"/:id", remove(type));
+    app.delete("/"+type+"/:id", remove(type));
 });
 
 
-(http.createServer app).listen 3000
+http.createServer(app).listen(3000);

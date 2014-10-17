@@ -99,20 +99,33 @@ A [doodle](http://doodle.com/ry3utyr8fzqgzncn#)? Or something of your choosing!?
         - edit any row in the doodle. Then save it.
         - remove any row from the doodle
 
+ACTIVITY use curl to create/fetch users from the api.
+ACTIVITY let us learn how to do this from jquery. jQuery primer: DOM manipulation and AJAX
+
     d. define the pages:
         - a page with a list of doodles
         - a page to create a doodle
         - a doodle page: add you choice, modify, remove, etc.
 
-        Models:
         These are called Views. Views modify ONLY models, not other views.
         Views get modified ONLY when models they render modify!
 
+TODO write a simple backend: using NeDB(https://github.com/louischatriot/nedb) and express.js
 
-    e. write some code! The doodle list page.
-        - basic html page. Call a rest endpoint to fetch data from it then display it.
+    e. let us add some structure:
+        - Learn about OOP in Javascript. How to write a class. How to extend a class.
+ACTIVITY write inheritance.
 
-        TODO write a simple backend: using NeDB(https://github.com/louischatriot/nedb) and express.js
+        - Learn about Pub/Sub Or Obeserver Pattern.
+ACTIVITY build an implementation of Pub/Sub. Describe the api on the board. Write a test for it.
+
+        - Learn about the mediator pattern. How we are going to use it?! MVC.
 
     WHY MVC? Are you familiar with the mediator pattern?
     Lowers coupling, every component only talks to the mediator.
+
+    e. write some code! The doodle list page.
+        - jQuery primer: DOM manipulation and AJAX calls.
+
+TODO: build the application without any use of Backbone. Just jquery and underscore.
+
