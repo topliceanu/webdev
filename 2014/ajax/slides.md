@@ -46,6 +46,7 @@ A [doodle](http://doodle.com/ry3utyr8fzqgzncn#)? Or something of your choosing!?
     - distributed systems: databases, file systems, processing systems, architectures, etc.
     - cloud (cloud providers, their services, their cost, benchmarks, implementations)
         - all of them have free quotas, so you can try things out.
+        - how to build scalable systems: distributed queues, load ballancing, etc.
 
     - software develpment methodologies: agile, TDD (Keep code quality high)
     - OOP
