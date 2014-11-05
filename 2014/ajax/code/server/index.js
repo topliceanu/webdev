@@ -112,4 +112,4 @@ var remove = function(type) {
 });
 
 
-http.createServer(app).listen(3000);
+http.createServer(app).listen(process.ENV.PORT, process.ENV.HOST);
