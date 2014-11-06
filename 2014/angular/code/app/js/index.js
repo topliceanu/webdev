@@ -12,45 +12,29 @@ app.config(['$resourceProvider', function($resourceProvider) {
 }]);
 
 
-// Controllers.
-
-app.controller('UserLoginController', ['$scope', 'Users', function ($scope, Users) {}]);
-
-app.controller('DoodleListController', ['$scope', function ($scope) {}]);
-
-app.controller('DoodleCreateController', ['$scope', function ($scope) {}]);
-
-app.controller('DoodleEditController', ['$scope', function ($scope) {}]);
-
-
-// Routing
-
-app.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider
-        .when('/user/login', {
-            templateUrl: 'partials/user-login.html',
-            controller: 'UserLoginController'
-        })
-        .when('/doodle/list', {
-            templateUrl: 'partials/doodle-list.html',
-            controller: 'DoodleListController'
-        })
-        .when('/doodle/create', {
-            templateUrl: 'partials/doodle-create.html',
-            controller: 'DoodleCreateController'
-        })
-        .when('/doodle/edit', {
-            templateUrl: 'partials/doodle-edit.html',
-            controller: 'DoodleEditController'
-        })
-        .otherwise({
-            redirectTo: '/user/login'
-        })
-}]);
-
-
 // Resources
-
+/*
+ * User format:
+ *  {
+ *      _id: String,
+ *      username: String
+ *  }
+ * Doodle format:
+ * {
+ *      _id:String,
+ *      title:String,
+ *      creator: {
+ *          _id,
+ *          username
+ *     },
+ *     options: Array<String>,
+ *     joined: {
+ *          userId: {
+ *              option: Boolean
+ *          }
+ *      }
+ * }
+ */
 _.each(['Users', 'Doodles'], function (name) {
     app.factory(name, ['$scope', '$resource', 'config',
         function ($scope, $resource, config) {
@@ -77,3 +61,55 @@ _.each(['Users', 'Doodles'], function (name) {
             });
     }]);
 });
+
+
+// Services.
+
+app.factory('currentUser', function () {
+    var currentUser
+    return {
+        set: function (value) {
+            currentUser = value;
+        },
+        get: function () {
+            return currentUser
+        }
+    };
+});
+
+
+// Controllers.
+
+app.controller('UserLoginController', ['$scope', function ($scope) {}]);
+
+app.controller('DoodleListController', ['$scope', function ($scope) {}]);
+
+app.controller('DoodleEditController', ['$scope', function ($scope) {}]);
+
+app.controller('DoodleJoinController', ['$scope', function ($scope) {}]);
+
+
+// Routing
+
+app.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider
+        .when('/user/login', {
+            templateUrl: 'partials/user-login.html',
+            controller: 'UserLoginController'
+        })
+        .when('/doodle/list', {
+            templateUrl: 'partials/doodle-list.html',
+            controller: 'DoodleListController'
+        })
+        .when('/doodle/edit', {
+            templateUrl: 'partials/doodle-edit.html',
+            controller: 'DoodleEditController'
+        })
+        .when('/doodle/join', {
+            templateUrl: 'partials/doodle-join.html',
+            controller: 'DoodleJoinController'
+        })
+        .otherwise({
+            redirectTo: '/user/login'
+        })
+}]);

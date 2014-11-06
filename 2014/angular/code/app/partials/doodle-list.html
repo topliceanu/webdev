@@ -1,1 +1,24 @@
-doodle list
+<table class="table table-striped">
+    <caption>Available Doodles</caption>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Doodle Title</th>
+            <th>Creator</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="doodle in doodles">
+            <td>{{index}}</td>
+            <td>{{doodle.title}}</td>
+            <td>{{doodle.user}}</td>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default">Edit</button>
+                    <button type="button" class="btn btn-default">Join</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

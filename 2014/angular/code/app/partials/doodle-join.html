@@ -1,0 +1,17 @@
+<table class="table table-striped">
+    <caption>{{title}}</caption>
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th ng-repeat="option in options">{{option}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="user in joined">
+            <td>{{username}}</td>
+            <td ng-repeat="option in options">
+                <input type="checkbox" ng-model="user[option]"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
