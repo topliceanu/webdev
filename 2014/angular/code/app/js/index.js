@@ -1,4 +1,4 @@
-var app = angular.module('doodle', ['ngResource']);
+var app = angular.module('doodle', ['ngResource', 'ngRoute']);
 
 // Configurations
 
@@ -14,13 +14,39 @@ app.config(['$resourceProvider', function($resourceProvider) {
 
 // Controllers.
 
-app.controller('UserLoginController', ['$scope', function ($scope) {}]);
+app.controller('UserLoginController', ['$scope', 'Users', function ($scope, Users) {}]);
 
 app.controller('DoodleListController', ['$scope', function ($scope) {}]);
 
 app.controller('DoodleCreateController', ['$scope', function ($scope) {}]);
 
 app.controller('DoodleEditController', ['$scope', function ($scope) {}]);
+
+
+// Routing
+
+app.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider
+        .when('/user/login', {
+            templateUrl: 'partials/user-login.html',
+            controller: 'UserLoginController'
+        })
+        .when('/doodle/list', {
+            templateUrl: 'partials/doodle-list.html',
+            controller: 'DoodleListController'
+        })
+        .when('/doodle/create', {
+            templateUrl: 'partials/doodle-create.html',
+            controller: 'DoodleCreateController'
+        })
+        .when('/doodle/edit', {
+            templateUrl: 'partials/doodle-edit.html',
+            controller: 'DoodleEditController'
+        })
+        .otherwise({
+            redirectTo: '/user/login'
+        })
+}]);
 
 
 // Resources
@@ -30,11 +56,24 @@ _.each(['Users', 'Doodles'], function (name) {
         function ($scope, $resource, config) {
             name = name.toLowerCase()
             return $resource(config.baseUrl+'/'+name+'/:id', {}, {
-                create: {method: 'POST', url: config.baseUrl+'/'+name},
-                read: {method: 'GET'},
-                readAll: {method: 'GET', url: config.baseUrl+'/'+name, isArray: true},
-                update: {method: 'PUT'},
-                remove: {method: 'DELETE'}
+                create: {
+                    method: 'POST',
+                    url: config.baseUrl+'/'+name
+                },
+                read: {
+                    method: 'GET'
+                },
+                readAll: {
+                    method: 'GET',
+                    url: config.baseUrl+'/'+name,
+                    isArray: true
+                },
+                update: {
+                    method: 'PUT'
+                },
+                remove: {
+                    method: 'DELETE'
+                }
             });
     }]);
 });

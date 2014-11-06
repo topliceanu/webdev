@@ -30,3 +30,9 @@ $resource
 ---------
 
 A factory which creates a resource object that lets you interact with RESTful server-side data sources.
+
+
+ngView
+------
+
+ngView is a directive that complements the $route service by including the rendered template of the current route into the main layout (index.html) file. Every time the current route changes, the included view changes with it according to the configuration of the $route service.

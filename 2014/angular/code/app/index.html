@@ -1,16 +1,22 @@
 <!doctype html>
-<html ng-app="doodle">
+<html lang="en" ng-app="doodle">
     <head>
+        <meta charset="utf-8"/>
         <title>Doodle</title>
 
         <link rel="stylesheet" href="css/bootstrap.css"/>
-        <link rel="stylesheet" href="app.css"/>
+        <link rel="stylesheet" href="css/app.css"/>
 
         <script src="js/lib/angular.js"></script>
+        <script src="js/lib/angular-resource.js"></script>
+        <script src="js/lib/angular-route.js"></script>
         <script src="js/lib/underscore.js"></script>
 
         <script src="js/index.js"></script>
     </head>
     <body>
+        <!-- application content -->
+        <div class="container" ng-view>
+        </div>
     </body>
 </html>
