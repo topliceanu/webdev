@@ -51,9 +51,32 @@ Implement a register page and modify the login page.
 Exercise
 --------
 
-Join the create and edit doodle pages.
+Merge the create and edit doodle pages into a single page.
 
 Exercise
 --------
 
 Cleanup the join page. How can we edit in place.
+
+Exercise
+--------
+
+Add validation on forms.
+
+Exercise
+--------
+
+Filters
+-------
+
+A filter formats the value of an expression for display to the user. They can be used in view templates, controllers or services and it is easy to define your own filter.
+
+Exercise
+--------
+
+On doodle join: add a count for each option; add a most popular option.
+
+Exercise
+--------
+
+Implement navigation for the application.

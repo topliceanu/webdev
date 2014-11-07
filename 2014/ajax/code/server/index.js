@@ -79,7 +79,12 @@ var update = function(type) {
             if (err != null) {
                 return res.send(500, err.message);
             }
-            return res.send(200, newDoc);
+            db[type].findOne(find, function(err, doc) {
+                if (err != null) {
+                    return res.send(500, err.message);
+                }
+                return res.send(200, doc);
+            });
         });
     };
 };
@@ -112,4 +117,4 @@ var remove = function(type) {
 });
 
 
-http.createServer(app).listen(process.ENV.PORT, process.ENV.HOST);
+http.createServer(app).listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0");

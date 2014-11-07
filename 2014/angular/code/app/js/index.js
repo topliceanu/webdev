@@ -25,12 +25,12 @@ app.config(['$resourceProvider', function($resourceProvider) {
  *      _id:String,
  *      title:String,
  *      creator: {
- *          _id,
- *          username
+ *          _id: String,
+ *          username: String
  *     },
  *     options: Array<String>,
  *     joined: {
- *          userId: {
+ *          username: {
  *              option: Boolean
  *          }
  *     },
@@ -87,6 +87,20 @@ app.factory('currentUser', [
             }
         };
     }]);
+
+
+// Filters.
+app.filter('withoutUser', function () {
+    return function (joined, user) {
+        output = _.reduce(joined, function (collector, options, username) {
+            if (user.username !== username) {
+                collector[username] = options;
+            }
+            return collector;
+        }, {});
+        return output;
+    };
+});
 
 
 // Controllers.
@@ -160,7 +174,15 @@ app.controller('DoodleJoinController', [
     function ($scope, $routeParams, currentUser, Doodle) {
         currentUser.check();
 
+        $scope.user = currentUser.get();
         $scope.doodle = Doodle.read($routeParams);
+        $scope.save = function () {
+            $scope.doodle = Doodle.update({id: $scope.doodle._id}, $scope.doodle);
+        };
+        $scope.remove = function () {
+            delete $scope.doodle.joined[$scope.user.username];
+            $scope.doodle = Doodle.update({id: $scope.doodle._id}, $scope.doodle);
+        };
     }]);
 
 
