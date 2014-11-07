@@ -42,3 +42,18 @@ MVC
 ---
 
 Separate code that handles data (ie. business logic) from code that handles presentaion. Why?
+
+Exercise
+--------
+
+Implement a register page and modify the login page.
+
+Exercise
+--------
+
+Join the create and edit doodle pages.
+
+Exercise
+--------
+
+Cleanup the join page. How can we edit in place.
