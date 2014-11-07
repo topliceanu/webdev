@@ -1,3 +1,4 @@
+<a href="#/doodle/create" class="btn btn-primary">Add Doodle!</a>
 <table class="table table-striped">
     <caption>Available Doodles</caption>
     <thead>
@@ -10,13 +11,13 @@
     </thead>
     <tbody>
         <tr ng-repeat="doodle in doodles">
-            <td>{{index}}</td>
+            <td>{{doodle.createdOn | date}}</td>
             <td>{{doodle.title}}</td>
-            <td>{{doodle.user}}</td>
+            <td>{{doodle.creator.name}}</td>
             <td>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default">Edit</button>
-                    <button type="button" class="btn btn-default">Join</button>
+                    <a href="#/doodle/edit/{{doodle._id}}" class="btn btn-default">Edit</a>
+                    <a href="#/doodle/join/{{doodle._id}}" class="btn btn-default">Join</a>
                 </div>
             </td>
         </tr>

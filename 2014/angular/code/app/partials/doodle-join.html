@@ -1,13 +1,15 @@
+<h2>{{doodle.title}}</h2>
+<h3>{{doodle.creator.username}}</h3>
 <table class="table table-striped">
-    <caption>{{title}}</caption>
+    <caption>Doodle options</caption>
     <thead>
         <tr>
             <th>Username</th>
-            <th ng-repeat="option in options">{{option}}</th>
+            <th ng-repeat="option in doodle.options">{{option}}</th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="user in joined">
+        <tr ng-repeat="user in doodle.joined">
             <td>{{username}}</td>
             <td ng-repeat="option in options">
                 <input type="checkbox" ng-model="user[option]"/>

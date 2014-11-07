@@ -1,4 +1,4 @@
-var app = angular.module('doodle', ['ngResource', 'ngRoute']);
+var app = angular.module('doodle', ['ngResource', 'ngRoute', 'ngCookies']);
 
 // Configurations
 
@@ -17,7 +17,8 @@ app.config(['$resourceProvider', function($resourceProvider) {
  * User format:
  *  {
  *      _id: String,
- *      username: String
+ *      username: String,
+ *      createdOn: Number
  *  }
  * Doodle format:
  * {
@@ -32,24 +33,25 @@ app.config(['$resourceProvider', function($resourceProvider) {
  *          userId: {
  *              option: Boolean
  *          }
- *      }
+ *     },
+ *     createdOn: Number
  * }
  */
-_.each(['Users', 'Doodles'], function (name) {
-    app.factory(name, ['$scope', '$resource', 'config',
-        function ($scope, $resource, config) {
-            name = name.toLowerCase()
-            return $resource(config.baseUrl+'/'+name+'/:id', {}, {
+_.each(['User', 'Doodle'], function (name) {
+    app.factory(name, ['$resource', 'config',
+        function ($resource, config) {
+            name = name.toLowerCase()+'s';
+            return $resource(config.baseUrl+name+'/:id', {}, {
                 create: {
                     method: 'POST',
-                    url: config.baseUrl+'/'+name
+                    url: config.baseUrl+name
                 },
                 read: {
-                    method: 'GET'
+                    method: 'GET',
                 },
                 readAll: {
                     method: 'GET',
-                    url: config.baseUrl+'/'+name,
+                    url: config.baseUrl+name,
                     isArray: true
                 },
                 update: {
@@ -65,28 +67,101 @@ _.each(['Users', 'Doodles'], function (name) {
 
 // Services.
 
-app.factory('currentUser', function () {
-    var currentUser
-    return {
-        set: function (value) {
-            currentUser = value;
-        },
-        get: function () {
-            return currentUser
-        }
-    };
-});
+app.factory('currentUser', [
+    '$location', '$cookieStore',
+    function ($location, $cookieStore) {
+        return {
+            set: function (value) {
+                $cookieStore.put('currentUser', value);
+            },
+            get: function () {
+                return $cookieStore.get('currentUser');
+            },
+            check: function () {
+                if ($cookieStore.get('currentUser') == null) {
+                    $location.path('/user/login');
+                }
+            },
+            logout: function () {
+                $cookieStore.remove('currentUser');
+            }
+        };
+    }]);
 
 
 // Controllers.
 
-app.controller('UserLoginController', ['$scope', function ($scope) {}]);
+app.controller('UserLoginController', [
+    '$scope', '$location', 'currentUser', 'User',
+    function ($scope, $location, currentUser, User) {
+        $scope.save = function () {
+            var user = User.create({
+                username: $scope.username,
+                createdOn: Date.now()
+            }, function () {
+                currentUser.set(user);
+                $location.path('/doodle/list');
+            });
+        };
+    }]);
 
-app.controller('DoodleListController', ['$scope', function ($scope) {}]);
+app.controller('DoodleCreateController', [
+    '$scope', '$location', 'currentUser', 'Doodle',
+    function ($scope, $location, currentUser, Doodle) {
+        currentUser.check();
 
-app.controller('DoodleEditController', ['$scope', function ($scope) {}]);
+        $scope.doodle = {};
+        $scope.doodle.title = '';
+        $scope.doodle.creator = currentUser.get();
+        $scope.doodle.options = [];
+        $scope.doodle.joined = {};
 
-app.controller('DoodleJoinController', ['$scope', function ($scope) {}]);
+        $scope.addNewOption = function () {
+            $scope.doodle.options.push($scope.newOption);
+            $scope.newOption = '';
+        };
+
+        $scope.addDoodle = function () {
+            $scope.doodle.createdOn = Date.now();
+            Doodle.create($scope.doodle, function () {
+                $location.path('/doodle/list');
+            });
+        };
+    }]);
+
+app.controller('DoodleListController', [
+    '$scope', 'currentUser', 'Doodle',
+    function ($scope, currentUser, Doodle) {
+        currentUser.check();
+
+        $scope.doodles = Doodle.readAll()
+    }]);
+
+app.controller('DoodleEditController', [
+    '$scope', '$routeParams', 'currentUser', 'Doodle',
+    function ($scope, $routeParams, currentUser, Doodle) {
+        currentUser.check();
+
+        $scope.doodle = Doodle.read($routeParams);
+
+        $scope.addNewOption = function () {
+            $scope.doodle.options.push($scope.newOption);
+            $scope.newOption = '';
+        };
+
+        $scope.addDoodle = function () {
+            request = _.pick($scope.doodle, ['_id', 'title', 'creator', 'options', 'joined', 'createdOn']);
+            $scope.doodle = Doodle.update({id: request._id}, request);
+        };
+    }]);
+
+app.controller('DoodleJoinController', [
+    '$scope', '$routeParams', 'currentUser', 'Doodle',
+    function ($scope, $routeParams, currentUser, Doodle) {
+        currentUser.check();
+
+        $scope.doodle = Doodle.read($routeParams);
+    }]);
 
 
 // Routing
@@ -101,11 +176,15 @@ app.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'partials/doodle-list.html',
             controller: 'DoodleListController'
         })
-        .when('/doodle/edit', {
+        .when('/doodle/create', {
+            templateUrl: 'partials/doodle-edit.html',
+            controller: 'DoodleCreateController'
+        })
+        .when('/doodle/edit/:id', {
             templateUrl: 'partials/doodle-edit.html',
             controller: 'DoodleEditController'
         })
-        .when('/doodle/join', {
+        .when('/doodle/join/:id', {
             templateUrl: 'partials/doodle-join.html',
             controller: 'DoodleJoinController'
         })
