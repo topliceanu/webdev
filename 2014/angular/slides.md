@@ -18,7 +18,7 @@ Steps
 
 - data entities: users and doodles
 
-* users object format:
+ * users object format:
 
 ````json
 {
@@ -28,7 +28,7 @@ Steps
 }
 ````
 
-* doodles object format:
+ * doodles object format:
 
 ````json
 {
@@ -50,13 +50,13 @@ Steps
 
 - pages:
 
-* user login
-* doodle create
-* doodle edit
-* doodle list
-* doodle join
+ * user login
+ * doodle create
+ * doodle edit
+ * doodle list
+ * doodle join
 
-2. Setup the environment.
+`2.` Setup the environment.
 
 - setup the following directory tree structure
 
@@ -101,7 +101,7 @@ python -m SimpleHTTPServer
 __Checkpoint__ `$ git checkout checkpoint-1`
 
 
-3. Implement the login page
+`3.` Implement the login page
 
 - bootstrap the `index.html`.
 - bootstrap the `init.js`.
@@ -113,7 +113,7 @@ __Checkpoint__ `$ git checkout checkpoint-1`
 __Checkpoint__ `$ git checkout checkpoint-2`
 
 
-4. Implement the doodle create page.
+`4.` Implement the doodle create page.
 
 - add the `doodle` resource.
 - add appropriate routing in `routes.js`.
@@ -123,7 +123,7 @@ __Checkpoint__ `$ git checkout checkpoint-2`
 __Checkpoint__ `$ git checkout checkpoint-3`
 
 
-5. Implement the doodle list page.
+`5.` Implement the doodle list page.
 
 - add appropriate routing in `routes.js`.
 - add the html to list all doodles in `partials/doodle-list.html`
@@ -132,7 +132,7 @@ __Checkpoint__ `$ git checkout checkpoint-3`
 
 __Checkpoint__ `$ git checkout checkpoint-4`
 
-6. Implement the doodle edit page.
+`6.` Implement the doodle edit page.
 
 - very similar to doodle create page: same template! `partials/doodle-edit`.
 - controller (`DoodleEditController`) is different: it will not create a new doodle, it will fetch the existing one using `Doodle` resource.
@@ -141,7 +141,7 @@ __Checkpoint__ `$ git checkout checkpoint-4`
 
 __Checkpoint__ `$ git checkout checkpoint-5`
 
-7. Implement the doodle join page.
+`7.` Implement the doodle join page.
 
 - first start with the ui, ie. the template `doodle-join`.
 - Users have to pick their choices from among the doodle options.
