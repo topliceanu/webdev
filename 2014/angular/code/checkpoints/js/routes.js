@@ -17,6 +17,10 @@ app.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'partials/doodle-edit.html',
             controller: 'DoodleCreateController'
         })
+        .when('/doodle/edit/:id', {
+            templateUrl: 'partials/doodle-edit.html',
+            controller: 'DoodleEditController'
+        })
         .otherwise({
             redirectTo: '/user/login'
         })
