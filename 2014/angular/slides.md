@@ -2,6 +2,15 @@ Angular.js
 ==========
 
 
+How to
+------
+
+1. clone the repo on localhost: `$ git clone git@github.com:topliceanu/webdev.git`
+2. open this tutorial in the browser: [https://github.com/topliceanu/webdev/blob/master/2014/angular/slides.md](https://github.com/topliceanu/webdev/blob/master/2014/angular/slides.md)
+3. create a separate directory structure and follow the instructions.
+4. if you get lost, lag behing, do not understand something, check the [complete code](https://github.com/topliceanu/webdev/tree/master/2014/angular/code/app)
+5. to move on, go to the checkpoints folder in the webdev repo and checkout the corresponding checkpoint tag.
+
 
 Steps
 -----
@@ -20,33 +29,33 @@ Steps
 
  * users object format:
 
-````json
-{
-    _id: String,
-    username: String,
-    createdOn: Number
-}
-````
+  ````json
+  {
+      _id: String,
+      username: String,
+      createdOn: Number
+  }
+  ````
 
  * doodles object format:
 
-````json
-{
-     _id:String,
-     title:String,
-     creator: {
-         _id: String,
-         username: String
-    },
-    options: Array<String>,
-    joined: {
-         username: {
-             option: Boolean
-         }
-    },
-    createdOn: Number
-}
-````
+  ````json
+  {
+       _id:String,
+       title:String,
+       creator: {
+           _id: String,
+           username: String
+      },
+      options: Array<String>,
+      joined: {
+           username: {
+               option: Boolean
+           }
+      },
+      createdOn: Number
+  }
+  ````
 
 - pages:
 
@@ -64,7 +73,7 @@ Steps
 ├── app/
 │   ├── css/
 │   │   ├── app.css
-│   │   └── bootstrap.css  ## <-- download from
+│   │   └── bootstrap.css  ## <-- download from https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.css
 │   ├── index.html  ## <-- empty
 │   ├── js/
 │   │   ├── controllers/
@@ -73,11 +82,11 @@ Steps
 │   │   │   └── ...
 │   │   ├── init.js  ## <-- empty
 │   │   ├── lib/
-│   │   │   ├── angular-cookies.js  ## <-- download from
-│   │   │   ├── angular.js   ## <-- download from
-│   │   │   ├── angular-resource.js   ## <-- download from
-│   │   │   ├── angular-route.js   ## <-- download from
-│   │   │   └── underscore.js   ## <-- download from
+│   │   │   ├── angular-cookies.js  ## <-- download from https://code.angularjs.org/1.3.1/angular-cookies.js
+│   │   │   ├── angular.js   ## <-- download from https://code.angularjs.org/1.3.1/angular.js
+│   │   │   ├── angular-resource.js   ## <-- download from https://code.angularjs.org/1.3.1/angular-resource.js
+│   │   │   ├── angular-route.js   ## <-- download from https://code.angularjs.org/1.3.1/angular-route.js
+│   │   │   └── underscore.js   ## <-- download from http://underscorejs.org/underscore.js
 │   │   ├── resources/
 │   │   │   ├── Doodle.js
 │   │   │   └── User.js
@@ -103,6 +112,7 @@ __Checkpoint__ `$ git checkout checkpoint-1`
 
 `3.` Implement the login page
 
+- add the `User` resource.
 - bootstrap the `index.html`.
 - bootstrap the `init.js`.
 - add a simple router to `routes.js`.
@@ -119,6 +129,7 @@ __Checkpoint__ `$ git checkout checkpoint-2`
 - add appropriate routing in `routes.js`.
 - add html to `partials/doodle-edit.html`.
 - implement the controller for this page: `DoodleCreateController`
+- modify the index.html to load the new js files.
 
 __Checkpoint__ `$ git checkout checkpoint-3`
 
@@ -129,6 +140,7 @@ __Checkpoint__ `$ git checkout checkpoint-3`
 - add the html to list all doodles in `partials/doodle-list.html`
 - implement the `DoodleListController`. Uses the `Doodle` resource to fetch data.
 - link _create doodle_ with _doodle list_: after a user creates a doodle, redirect him to doodle list.
+- modify the index.html to load the new js files.
 
 __Checkpoint__ `$ git checkout checkpoint-4`
 
@@ -138,15 +150,18 @@ __Checkpoint__ `$ git checkout checkpoint-4`
 - controller (`DoodleEditController`) is different: it will not create a new doodle, it will fetch the existing one using `Doodle` resource.
 - update `routes.js`.
 - add button on `doodle-list` which route to this page.
+- modify the index.html to load the new js files.
 
 __Checkpoint__ `$ git checkout checkpoint-5`
 
 `7.` Implement the doodle join page.
 
-- first start with the ui, ie. the template `doodle-join`.
+- first start with the ui, ie. add the template `doodle-join`.
 - Users have to pick their choices from among the doodle options.
 - Implement controller `DoodleJoinController` which handles adding the current user choices or removing the current user choices.
 - add a button on the doodle list to allow users to join a doodle.
+- modify the index.html to load the new js files.
+- add routing for this page in the doodle list page.
 
 __Checkpoint__ `$ git checkout checkpoint-6`
 
