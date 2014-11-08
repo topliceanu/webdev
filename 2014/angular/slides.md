@@ -1,56 +1,195 @@
-Angular
-=======
+Angular.js
+==========
 
 
-ngApp - defines the root scope.
-ngController - defines a portion of html bound to this controller.
+
+Steps
+-----
+
+1. Application planning
+
+- use cases (aka. _user stories_)
+
+* As a _user_ I want to _be able to login_ so that I can _access the functionality of the app_.
+* As a _user_ I want to _view all doodles_ created by me and other users so that _I can participate_.
+* As a _user_ I want to _create a new doodle_ so that _I can ask people to fill this in_.
+* As a _user_ I want to _edit a doodle_ so that _I remove mistakes and/or make it better_.
+* As a _user_ I want to _join a doodle_ so that _I can participate in the poll_.
+
+- data entities: users and doodles
+
+* users object format:
+
+````json
+{
+    _id: String,
+    username: String,
+    createdOn: Number
+}
+````
+
+* doodles object format:
+
+````json
+{
+     _id:String,
+     title:String,
+     creator: {
+         _id: String,
+         username: String
+    },
+    options: Array<String>,
+    joined: {
+         username: {
+             option: Boolean
+         }
+    },
+    createdOn: Number
+}
+````
+
+- pages:
+
+* user login
+* doodle create
+* doodle edit
+* doodle list
+* doodle join
+
+2. Setup the environment.
+
+- setup the following directory tree structure
+
+````bash
+├── app/
+│   ├── css/
+│   │   ├── app.css
+│   │   └── bootstrap.css  ## <-- download from
+│   ├── index.html  ## <-- empty
+│   ├── js/
+│   │   ├── controllers/
+│   │   │   └── ...
+│   │   ├── filters/
+│   │   │   └── ...
+│   │   ├── init.js  ## <-- empty
+│   │   ├── lib/
+│   │   │   ├── angular-cookies.js  ## <-- download from
+│   │   │   ├── angular.js   ## <-- download from
+│   │   │   ├── angular-resource.js   ## <-- download from
+│   │   │   ├── angular-route.js   ## <-- download from
+│   │   │   └── underscore.js   ## <-- download from
+│   │   ├── resources/
+│   │   │   ├── Doodle.js
+│   │   │   └── User.js
+│   │   └── services/
+│   │       └── ...
+│   └── partials/
+│       ├── doodle-create.html
+│       ├── doodle-edit.html
+│       ├── doodle-join.html
+│       ├── doodle-list.html
+│       └── user-login.html
+````
+
+- start a simple http server serving static content from the app folder using:
+
+````bash
+python -m SimpleHTTPServer
+````
+- use your browser to navigate to `http://localhost:8000`
+
+__Checkpoint__ `$ git checkout checkpoint-1`
 
 
-MVC components in angular
--------------------------
+3. Implement the login page
+
+- bootstrap the `index.html`.
+- bootstrap the `init.js`.
+- add a simple router to `routes.js`.
+- add html to `partials/user-login.html`
+- add the `currentUser` service.
+- add the `UserLoginController`
+
+__Checkpoint__ `$ git checkout checkpoint-2`
+
+
+4. Implement the doodle create page.
+
+- add the `doodle` resource.
+- add appropriate routing in `routes.js`.
+- add html to `partials/doodle-edit.html`.
+- implement the controller for this page: `DoodleCreateController`
+
+__Checkpoint__ `$ git checkout checkpoint-3`
+
+
+5. Implement the doodle list page.
+
+- add appropriate routing in `routes.js`.
+- add the html to list all doodles in `partials/doodle-list.html`
+- implement the `DoodleListController`. Uses the `Doodle` resource to fetch data.
+- link _create doodle_ with _doodle list_: after a user creates a doodle, redirect him to doodle list.
+
+__Checkpoint__ `$ git checkout checkpoint-4`
+
+6. Implement the doodle edit page.
+
+- very similar to doodle create page: same template! `partials/doodle-edit`.
+- controller (`DoodleEditController`) is different: it will not create a new doodle, it will fetch the existing one using `Doodle` resource.
+- update `routes.js`.
+- add button on `doodle-list` which route to this page.
+
+__Checkpoint__ `$ git checkout checkpoint-5`
+
+7. Implement the doodle join page.
+
+- first start with the ui, ie. the template `doodle-join`.
+- Users have to pick their choices from among the doodle options.
+- Implement controller `DoodleJoinController` which handles adding the current user choices or removing the current user choices.
+- add a button on the doodle list to allow users to join a doodle.
+
+__Checkpoint__ `$ git checkout checkpoint-6`
+
+
+Glossary of Concepts
+--------------------
+
+1. __MVC (Model-View-Controller)__
+
+- Why? Separate data processing (business logic) from data presentation? Why?
+- MVC process:
+
+![MVC process](http://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/MVC-Process.svg/200px-MVC-Process.svg.png)
+
+- MVC components in angular
 
 * Model — Models are the properties of a scope; scopes are attached to the DOM where scope properties are accessed through bindings.
 * View — The template (HTML with data bindings) that is rendered into the View.
 * Controller — The ngController directive specifies a Controller class; the class contains business logic behind the application to decorate the scope with functions and values
 
 
-Dependency Injection
---------------------
-
-Services are managed by Angulars DI subsystem. Dependency injection helps to make your web apps both well-structured (e.g., separate components for presentation, data, and control) and loosely coupled (dependencies between components are not resolved by the components themselves, but by the DI subsystem).
+2. Other usefull __Design Patterns__: Factory, MVC, Mediator, Pub/Sub, Composite, Singleton.
 
 
-$resource
----------
-
-A factory which creates a resource object that lets you interact with RESTful server-side data sources.
-
-Design Patterns
----------------
-
-Factory, MVC, Mediator, Pub/Sub, Composite, Singleton.
+3. __ngApp__ - defines the root scope.
 
 
-ngView
-------
-
-ngView is a directive that complements the $route service by including the rendered template of the current route into the main layout (index.html) file. Every time the current route changes, the included view changes with it according to the configuration of the $route service.
+4. __ngController__ - defines a portion of html bound to a named controller.
 
 
-MVC
----
+5. __Services__ - substitutable objects that are wired together using dependency injection. Properties:
 
-Separate code that handles data (ie. business logic) from code that handles presentaion. Why?
-
-Concepts
---------
+Lazily instantiated – Angular only instantiates a service when an application component depends on it.
+Singletons – Each component dependent on a service gets a reference to the single instance generated by the service factory.
 
 
+5. __$resource__ - A factory which creates a resource object that lets you interact with RESTful server-side data sources.
 
-Filters
--------
 
-A filter formats the value of an expression for display to the user. They can be used in view templates, controllers or services and it is easy to define your own filter.
+6. __ngView__ - ngView is a directive that complements the $route service by including the rendered template of the current route into the main layout (index.html) file. Every time the current route changes, the included view changes with it according to the configuration of the $route service.
+
+
+7. __Filters__ - A filter formats the value of an expression for display to the user. They can be used in view templates, controllers or services and it is easy to define your own filter.
 
 
 Exercises
@@ -66,6 +205,8 @@ b. Implement a navigation bar for our application. Should have two links: doodle
 a. Implement a page `user/register` where you create a new user only if it does not exist. After creation, redirect to `user/login`
 b. On page `user/login` do not create new users, only allow users who already exist.
 c. Implement a button for user logout. After loggin out, redirect to `user/login` page.
+d. Add a page listing all the users in the application.
+e. Add a user page where you can see all doodle a user has created.
 
 3. On `doodle/list` page.
 
@@ -84,3 +225,27 @@ c. Add validation, do not allow empty options. Do not allow duplicate options.
 
 a. attach next to each options in the table, the number of users who have picked that option.
 b. print the most popular option.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Angular
+=======
+
+
+
+
