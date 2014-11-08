@@ -9,6 +9,10 @@ app.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'partials/user-login.html',
             controller: 'UserLoginController'
         })
+        .when('/doodle/create', {
+            templateUrl: 'partials/doodle-edit.html',
+            controller: 'DoodleCreateController'
+        })
         .otherwise({
             redirectTo: '/user/login'
         })
