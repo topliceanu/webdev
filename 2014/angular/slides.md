@@ -212,31 +212,31 @@ Exercises
 
 1. General
 
- a. Implement two way binding on your own!
- b. Implement a navigation bar for our application. Should have two links: doodle list and logout.
+ *. Implement two way binding on your own!
+ *. Implement a navigation bar for our application. Should have two links: doodle list and logout.
 
 2. Users.
 
- a. Implement a page `user/register` where you create a new user only if it does not exist. After creation, redirect to `user/login`
- b. On page `user/login` do not create new users, only allow users who already exist.
- c. Implement a button for user logout. After loggin out, redirect to `user/login` page.
- d. Add a page listing all the users in the application.
- e. Add a user page where you can see all doodle a user has created.
+ *. Implement a page `user/register` where you create a new user only if it does not exist. After creation, redirect to `user/login`
+ *. On page `user/login` do not create new users, only allow users who already exist.
+ *. Implement a button for user logout. After loggin out, redirect to `user/login` page.
+ *. Add a page listing all the users in the application.
+ *. Add a user page where you can see all doodle a user has created.
 
 3. On `doodle/list` page.
 
- a. implement delete buttons only for doodles created by the current user.
- b. allow edit button only for users who created the doodle.
- c. list the number of user which participated on each doodle.
- d. implement sorting alfabetically (asc/desc) by user title/creator/participants.
+ *. implement delete buttons only for doodles created by the current user.
+ *. allow edit button only for users who created the doodle.
+ *. list the number of user which participated on each doodle.
+ *. implement sorting alfabetically (asc/desc) by user title/creator/participants.
 
 4. On `doodle/create` and `doodle/edit` pages.
 
- a. Merge the `doodle/create` and `doodle/edit` pages to use the same controller. Currently they are using the same template and they are pretty much the same.
- b. Allow editing of existing options (maybe we misspelled the name of an option). Carefull to correctly update the doodle object.
- c. Add validation, do not allow empty options. Do not allow duplicate options.
+ *. Merge the `doodle/create` and `doodle/edit` pages to use the same controller. Currently they are using the same template and they are pretty much the same.
+ *. Allow editing of existing options (maybe we misspelled the name of an option). Carefull to correctly update the doodle object.
+ *. Add validation, do not allow empty options. Do not allow duplicate options.
 
 5. On `doodle/join` page.
 
- a. attach next to each options in the table, the number of users who have picked that option.
- b. print the most popular option.
+ *. attach next to each options in the table, the number of users who have picked that option.
+ *. print the most popular option.
