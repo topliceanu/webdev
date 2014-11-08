@@ -226,7 +226,7 @@ Exercises
 3. On `doodle/list` page.
 
  * implement delete buttons only for doodles created by the current user.
- * allow edit button only for users who created the doodle.
+ * allow edit button only for users who created the doodle. See [ng-show](https://docs.angularjs.org/api/ng/directive/ngShow)
  * list the number of user which participated on each doodle.
  * implement sorting alfabetically (asc/desc) by user title/creator/participants.
 
