@@ -6,15 +6,15 @@ Angular.js
 Steps
 -----
 
-1. Application planning
+`1.` Application planning
 
 - use cases (aka. _user stories_)
 
-* As a _user_ I want to _be able to login_ so that I can _access the functionality of the app_.
-* As a _user_ I want to _view all doodles_ created by me and other users so that _I can participate_.
-* As a _user_ I want to _create a new doodle_ so that _I can ask people to fill this in_.
-* As a _user_ I want to _edit a doodle_ so that _I remove mistakes and/or make it better_.
-* As a _user_ I want to _join a doodle_ so that _I can participate in the poll_.
+ * As a _user_ I want to _be able to login_ so that I can _access the functionality of the app_.
+ * As a _user_ I want to _view all doodles_ created by me and other users so that _I can participate_.
+ * As a _user_ I want to _create a new doodle_ so that _I can ask people to fill this in_.
+ * As a _user_ I want to _edit a doodle_ so that _I remove mistakes and/or make it better_.
+ * As a _user_ I want to _join a doodle_ so that _I can participate in the poll_.
 
 - data entities: users and doodles
 
@@ -225,27 +225,3 @@ c. Add validation, do not allow empty options. Do not allow duplicate options.
 
 a. attach next to each options in the table, the number of users who have picked that option.
 b. print the most popular option.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Angular
-=======
-
-
-
-
