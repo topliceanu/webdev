@@ -20,16 +20,15 @@ Dependency Injection
 Services are managed by Angulars DI subsystem. Dependency injection helps to make your web apps both well-structured (e.g., separate components for presentation, data, and control) and loosely coupled (dependencies between components are not resolved by the components themselves, but by the DI subsystem).
 
 
-Exercise
---------
-
-Implement two way binding on your own!
-
-
 $resource
 ---------
 
 A factory which creates a resource object that lets you interact with RESTful server-side data sources.
+
+Design Patterns
+---------------
+
+Factory, MVC, Mediator, Pub/Sub, Composite, Singleton.
 
 
 ngView
@@ -43,40 +42,45 @@ MVC
 
 Separate code that handles data (ie. business logic) from code that handles presentaion. Why?
 
-Exercise
+Concepts
 --------
 
-Implement a register page and modify the login page.
 
-Exercise
---------
-
-Merge the create and edit doodle pages into a single page.
-
-Exercise
---------
-
-Cleanup the join page. How can we edit in place.
-
-Exercise
---------
-
-Add validation on forms.
-
-Exercise
---------
 
 Filters
 -------
 
 A filter formats the value of an expression for display to the user. They can be used in view templates, controllers or services and it is easy to define your own filter.
 
-Exercise
---------
 
-On doodle join: add a count for each option; add a most popular option.
+Exercises
+---------
 
-Exercise
---------
+1. General
 
-Implement navigation for the application.
+a. Implement two way binding on your own!
+b. Implement a navigation bar for our application. Should have two links: doodle list and logout.
+
+2. Users.
+
+a. Implement a page `user/register` where you create a new user only if it does not exist. After creation, redirect to `user/login`
+b. On page `user/login` do not create new users, only allow users who already exist.
+c. Implement a button for user logout. After loggin out, redirect to `user/login` page.
+
+3. On `doodle/list` page.
+
+a. implement delete buttons only for doodles created by the current user.
+b. allow edit button only for users who created the doodle.
+c. list the number of user which participated on each doodle.
+d. implement sorting alfabetically (asc/desc) by user title/creator/participants.
+
+4. On `doodle/create` and `doodle/edit` pages.
+
+a. Merge the `doodle/create` and `doodle/edit` pages to use the same controller. Currently they are using the same template and they are pretty much the same.
+b. Allow editing of existing options (maybe we misspelled the name of an option). Carefull to correctly update the doodle object.
+c. Add validation, do not allow empty options. Do not allow duplicate options.
+
+5. On `doodle/join` page.
+
+a. attach next to each options in the table, the number of users who have picked that option.
+b. print the most popular option.

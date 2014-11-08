@@ -108,7 +108,7 @@ var remove = function(type) {
 };
 
 
-['users', 'doodles', 'rows'].forEach(function (type) {
+['users', 'doodles'].forEach(function (type) {
     app.post("/"+type, create(type));
     app.get("/"+type, readAll(type));
     app.get("/"+type+"/:id", read(type));

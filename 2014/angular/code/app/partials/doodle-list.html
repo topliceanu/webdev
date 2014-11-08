@@ -6,14 +6,16 @@
             <th>#</th>
             <th>Doodle Title</th>
             <th>Creator</th>
+            <th>Created On</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="doodle in doodles">
-            <td>{{doodle.createdOn | date}}</td>
+            <td>{{$index + 1 }}
             <td>{{doodle.title}}</td>
-            <td>{{doodle.creator.name}}</td>
+            <td>{{doodle.creator.username}}</td>
+            <td>{{doodle.createdOn | date}}</td>
             <td>
                 <div class="btn-group">
                     <a href="#/doodle/edit/{{doodle._id}}" class="btn btn-default">Edit</a>
