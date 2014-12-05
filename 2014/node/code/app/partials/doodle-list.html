@@ -1,0 +1,29 @@
+<a href="#/doodle/create" class="btn btn-primary">Add Doodle!</a>
+<table class="table table-striped">
+    <caption>Available Doodles</caption>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Doodle Title</th>
+            <th>Creator</th>
+            <th>Users Joined</th>
+            <th>Created On</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="doodle in doodles">
+            <td>{{$index + 1 }}
+            <td>{{doodle.title}}</td>
+            <td>{{doodle.creator.username}}</td>
+            <td>{{countUsers(doodle)}}</td>
+            <td>{{doodle.createdOn | date}}</td>
+            <td>
+                <div class="btn-group">
+                    <a href="#/doodle/edit/{{doodle._id}}" class="btn btn-default" ng-show="user.username === doodle.creator.username">Edit</a>
+                    <a href="#/doodle/join/{{doodle._id}}" class="btn btn-default">Join</a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
