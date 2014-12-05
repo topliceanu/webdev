@@ -6,5 +6,10 @@ app.controller('DoodleListController', [
     function ($scope, currentUser, Doodle) {
         currentUser.check();
 
-        $scope.doodles = Doodle.readAll()
+        $scope.user = currentUser.get();
+        $scope.doodles = Doodle.readAll();
+
+        $scope.countUsers = function (doodle) {
+            return _.size(doodle.joined);
+        };
     }]);
