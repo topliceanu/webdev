@@ -1,5 +1,6 @@
 // Third party libraries.
 var bodyParser = require('body-parser');
+var cors = require('cors');
 var express = require('express');
 
 var rest = require('./rest');
@@ -9,12 +10,13 @@ var rest = require('./rest');
 var app = express();
 
 // Parse the contents of the query string and request body.
+app.use(cors());
 app.use(express.query());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Serve static content.
-app.use(express.static(__dirname+'../static'));
+app.use('/', express.static(__dirname+'/../static'));
 
 // Attach our custom routes to the express application.
 ['users', 'doodles'].forEach(function (type) {
