@@ -19,17 +19,17 @@ app.use(express.static(__dirname+'../static'));
 // Attach our custom routes to the express application.
 ['users', 'doodles'].forEach(function (type) {
     // Eg. POST /users
-    app.post("/"+type, rest.create(type));
+    app.post("/"+type, rest.createOne(type));
     // Eg. GET /users
     app.get("/"+type, rest.readAll(type));
     // Eg. GET /users/:id
-    app.get("/"+type+"/:id", rest.read(type));
+    app.get("/"+type+"/:id", rest.readOne(type));
     // Eg. PUT /users/:id
-    app.put("/"+type+"/:id", rest.update(type));
+    app.put("/"+type+"/:id", rest.updateOne(type));
     // Eg. DELETE /users/:id
-    app.delete("/"+type+"/:id", rest.remove(type));
+    app.delete("/"+type+"/:id", rest.removeOne(type));
 });
 
 
 // Module public api.
-modules.exports = app;
+module.exports = app;
