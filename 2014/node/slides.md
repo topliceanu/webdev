@@ -27,7 +27,7 @@ Plan
 - talk about moduled in node.js. How to define, export and use them.
 - __Exercise__ write and endpoint which increments an internal pointe each time an endpoint is called.
 - write a test for this endpoint. Make sure the endpoint returns the correct data. Anatomy of a test: setup, test, teardown.
-- describe test runners, mocha.js, assert libraries and chai.js
+- describe test runners, mocha.js, assert libraries and chai.js, test types (unit, functional, integration)
 - more on `express.js` and how it uses middleware: each request is handled by a stack of functions which are executed one by one.
 - __Exercise__ expand the webserver to implement a readAll endpoint. How do we serialize js data?!
 - more on nedb: stores data on disk and keeps a record of it in memory. Drop in replacement for mongodb. Describe data model: collections, documents. Describe operations. Reference link.
