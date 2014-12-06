@@ -2,14 +2,13 @@
  * Test suite for the the rest routes.
  */
 
-http = require('http');
+var http = require('http');
 
-assert = require('chai').assert;
-express = require('express');
-request = require('supertest');
+var assert = require('chai').assert;
+var request = require('supertest');
 
-routes = require('../server/routes');
-db = require('../server/db');
+var routes = require('../server/routes');
+var db = require('../server/db');
 
 
 describe('rest', function () {
@@ -30,7 +29,7 @@ describe('rest', function () {
         var that = this;
         db.users.insert({name: 'user1'}, function (err, user1) {
             if (err) return done(err);
-            that.user1 = user;
+            that.user1 = user1;
 
             db.users.insert({name: 'user2'}, function (err, user2) {
                 if (err) return done(err);
@@ -45,15 +44,7 @@ describe('rest', function () {
      * @param {Function} done - continuation function.
      */
     afterEach(function (done) {
-        db.users.remove({}, done);
-    });
-
-    /**
-     * Close the server.
-     * @param {Function} done - continuation function.
-     */
-    after(function (done) {
-        this.server.close(done);
+        db.users.remove({}, {multi: true}, done);
     });
 
     // Start the tests.
@@ -63,7 +54,7 @@ describe('rest', function () {
             var payload = {
                 name: 'user3'
             };
-            request(@server)
+            request(this.server)
                 .post("/users")
                 .set('Content-Type', 'application/json')
                 .set('Accept', 'application/json')
@@ -81,18 +72,16 @@ describe('rest', function () {
 
     describe('.readOne()', function () {
         it('should return a user by his id', function (done) {
-            var payload = {
-                name: 'user3'
-            };
-            request(@server)
-                .get("/users/"+this.user1._id)
+            var that = this;
+            request(this.server)
+                .get("/users/"+that.user1._id)
                 .set('Accept', 'application/json')
                 .end(function (err, res) {
                     if(err) return done(err);
                     assert.equal(res.statusCode, 200, 'Ok');
                     assert.isDefined(res.body, 'should return the existing user document');
                     assert.isDefined(res.body._id, 'should have an id');
-                    assert.equal(res.body.name, payload.name, 'should have created a user with correct name');
+                    assert.equal(res.body.name, that.user1.name, 'should have created a user with correct name');
                     done();
                 });
         });
@@ -101,10 +90,9 @@ describe('rest', function () {
     describe('.readAll()', function () {
         it('should return all users', function (done) {
             var that = this;
-            request(@server)
+            request(this.server)
                 .get("/users")
                 .set('Accept', 'application/json')
-                .send(payload)
                 .end(function (err, res) {
                     if(err) return done(err);
                     assert.equal(res.statusCode, 200, 'Ok');
@@ -123,8 +111,8 @@ describe('rest', function () {
             var payload = {
                 name: 'user1-updated'
             };
-            request(@server)
-                .put("/users")
+            request(this.server)
+                .put("/users/"+that.user1._id)
                 .set('Accept', 'application/json')
                 .send(payload)
                 .end(function (err, res) {
@@ -140,12 +128,12 @@ describe('rest', function () {
 
     describe('.deleteOne()', function () {
         it('should remove user by id', function (done) {
-            request(@server)
+            request(this.server)
                 .del("/users/"+this.user1._id)
                 .end(function (err, res) {
                     if(err) return done(err);
-                    assert.equal(res.statusCode, 200, 'Empty content');
-                    assert.isUndefined(res.body, 'should return nothing');
+                    assert.equal(res.statusCode, 204, 'Empty content');
+                    assert.deepEqual(res.body, {}, 'should return empty body');
                     done();
                 });
         });

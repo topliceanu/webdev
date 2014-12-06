@@ -55,7 +55,7 @@ exports.createOne = function(resourceName) {
  * @param {String} req.params.id - id of the document to update.
  * @param {Object} req.body - request body replaces the contents of the resource.
  */
-exports.update = function(resourceName) {
+exports.updateOne = function(resourceName) {
     return function(req, res) {
         var find, opts, updates;
         find = {
@@ -87,7 +87,7 @@ exports.update = function(resourceName) {
  * @param {String} resourceName - the name of the resource.
  * @param {String} req.params.id - id of document to remove.
  */
-exports.remove = function(resourceName) {
+exports.removeOne = function(resourceName) {
     return function(req, res) {
         var find, opts;
         find = {
