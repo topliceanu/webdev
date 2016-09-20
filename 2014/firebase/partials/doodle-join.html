@@ -1,0 +1,43 @@
+<div class="header">
+    <nav>
+        <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="#/doodle/list">List</a></li>
+            <li ng-show="doodle.creator.username === user.username" role="presentation"><a href="#/doodle/edit/{{doodle._id}}">Edit</a></li>
+        </ul>
+    </nav>
+    <h3 class="text-muted">Doodle / Join </h3>
+</div>
+
+<h2>{{doodle.title}}</h2>
+<h3>{{doodle.creator.username}}</h3>
+<table class="table table-striped">
+    <caption>Doodle options</caption>
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th ng-repeat="option in doodle.options">{{option}}</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="(username, options) in doodle.joined | withoutUser:user">
+            <td>{{username}}</td>
+            <td ng-repeat="option in doodle.options">
+                <input type="checkbox" ng-model="options[option]"/>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>{{user.username}}</td>
+            <td ng-repeat="option in doodle.options">
+                <input type="checkbox" ng-model="doodle.joined[user.username][option]"/>
+            </td>
+            <td>
+                <div class="btn-group">
+                    <button class="btn btn-default" ng-click="save()">Save</button>
+                    <button class="btn btn-default" ng-click="remove()">Delete</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

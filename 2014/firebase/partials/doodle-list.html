@@ -1,0 +1,38 @@
+<div class="header">
+    <nav>
+        <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="#/doodle/create">Add</a></li>
+            <li role="presentation"><a href="#/user/login">Log out</a></li>
+        </ul>
+    </nav>
+    <h3 class="text-muted">Doodle / List </h3>
+</div>
+
+<table class="table table-striped">
+    <caption>Available Doodles</caption>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Doodle Title</th>
+            <th>Creator</th>
+            <th>Users Joined</th>
+            <th>Created On</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="doodle in doodles">
+            <td>{{$index + 1 }}
+            <td>{{doodle.title}}</td>
+            <td>{{doodle.creator.username}}</td>
+            <td>{{countUsers(doodle)}}</td>
+            <td>{{doodle.createdOn | date}}</td>
+            <td>
+                <div class="btn-group">
+                    <a href="#/doodle/edit/{{doodle._id}}" class="btn btn-default" ng-show="user.username === doodle.creator.username">Edit</a>
+                    <a href="#/doodle/join/{{doodle._id}}" class="btn btn-default">Join</a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

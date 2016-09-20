@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" ng-app="doodle">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Doodle</title>
+
+        <link rel="stylesheet" href="css/bootstrap.css"/>
+        <link rel="stylesheet" href="css/app.css"/>
+
+        <script src="js/lib/angular.js"></script>
+        <script src="js/lib/angular-resource.js"></script>
+        <script src="js/lib/angular-route.js"></script>
+        <script src="js/lib/angular-cookies.js"></script>
+        <script src="js/lib/underscore.js"></script>
+        <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+        <script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
+
+        <script src="js/init.js"></script>
+        <script src="js/resources/Doodle.js"></script>
+        <script src="js/resources/User.js"></script>
+        <script src="js/services/currentUser.js"></script>
+        <script src="js/filters/withoutUser.js"></script>
+        <script src="js/controllers/UserLoginController.js"></script>
+        <script src="js/controllers/DoodleCreateController.js"></script>
+        <script src="js/controllers/DoodleEditController.js"></script>
+        <script src="js/controllers/DoodleListController.js"></script>
+        <script src="js/controllers/DoodleJoinController.js"></script>
+        <script src="js/routes.js"></script>
+    </head>
+    <body>
+        <!-- application content -->
+        <div class="container" ng-view="">
+        </div>
+    </body>
+</html>
